@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+	
+	<!-- SpringMVC扫描 -->
+	<context:component-scan base-package="com">
+    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" /> 
+	</context:component-scan>
+
+	<!-- 配置spring提供的属性文件加载器 -->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+
+	<!-- 带c3p0连接池的数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}"/>
+		<property name="jdbcUrl" value="${jdbc.url}"/>
+		<property name="user" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+
+		<!-- 其它的一些优化参数 -->
+		<property name="minPoolSize" value="5"/>
+		<property name="maxPoolSize" value="30"/>
+		<property name="checkoutTimeout" value="1800"/>
+		<property name="maxStatements" value="20"/>
+
+
+		<!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
+		<property name="idleConnectionTestPeriod" value="60"></property>
+
+		<property name="preferredTestQuery" value="SELECT 1" />
+
+
+	</bean>
+	
+	<!-- ==============================DAO层 -->
+	<!-- Spring为Hibernate提供的一个SessionFactory实体类，它产生的Session会自动绑定到当前线程上-->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate/hibernate.cfg.xml"/>
+		<property name="packagesToScan" value="com" />
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- 
+	<bean id="baseDao" class="com.csdnsoft.dao.impl.common.BaseDaoImpl" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean> -->
+	
+	<!-- ==============================Service层 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+ 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- =======声明式事务的配置-->
+<!--  	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" isolation="READ_COMMITTED" read-only="true"/>
+			<tx:method name="get*" isolation="READ_COMMITTED"  read-only="true"/>
+			<tx:method name="load*" isolation="READ_COMMITTED" read-only="true"/>
+			<tx:method name="find*" isolation="READ_COMMITTED" read-only="true"/>
+			<tx:method name="count*" isolation="READ_COMMITTED" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.mengruan..*.*(..))"/>
+	</aop:config> -->
+	
+	<!-- ==============================表示层的控制器 -->
+	
+<!--	<import resource="classpath*:/shiro.xml" />
+	<import resource="classpath*:/filestore.xml" />
+	<import resource="classpath*:/commonbean.xml" />-->
+</beans>

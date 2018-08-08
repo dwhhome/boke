@@ -7,15 +7,245 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>boke Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
+
+   <!-- 本人将配置包的版本信息都统一放入此处，方便以后管理-->
+  <properties>
+    <springVersion>4.3.1.RELEASE</springVersion>
+    <hibernateVersion>4.3.5.Final</hibernateVersion>
+    <jstlVersion>1.2</jstlVersion>
+    <taglibVersion>1.1.2</taglibVersion>
+    <servletVersion>3.0-alpha-1</servletVersion>
+    <jsonVersion>1.9.13</jsonVersion>
+    <jacksonVersion>2.5.0</jacksonVersion>
+    <mysqlVersion>5.1.38</mysqlVersion>
+    <c3p0Version>0.9.1.2</c3p0Version>
+    <log4jVersion>1.2.17</log4jVersion>
+    <fileuploadVersion>1.3.1</fileuploadVersion>
+    <lombokVersion>1.16.10</lombokVersion>
+    <commonsVersion>1.10</commonsVersion>
+    <antVersion>1.8.2</antVersion>
+    <quartzVersion>2.3.0</quartzVersion>
+    <httpcoreVersion>4.3.2</httpcoreVersion>
+    <commonslang3Version>3.4</commonslang3Version>
+    <commonslangVersion>2.6</commonslangVersion>
+    <gsonVersion>2.2.4</gsonVersion>
+    <httpclientVersion>4.5.2</httpclientVersion>
+    <httpmimeVersion>4.5.2</httpmimeVersion>
+  </properties>
+
   <dependencies>
+    <!-- 单元测试 -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
+    <!--httpcomponents -->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpmime</artifactId>
+      <version>${httpmimeVersion}</version>
+    </dependency>
+
+    <!-- httpcomponents -->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${httpclientVersion}</version>
+    </dependency>
+
+    <!-- com.google.code.gson-->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>${gsonVersion}</version>
+    </dependency>
+
+    <!--commons-lang3 -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commonslang3Version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${commonslangVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>${httpcoreVersion}</version>
+    </dependency>
+
+    <!-- 定时器-->
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz</artifactId>
+      <version>${quartzVersion}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>${antVersion}</version>
+    </dependency>
+
+    <!--  base编码-->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${commonsVersion}</version>
+    </dependency>
+
+    <!-- spring-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${springVersion}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${springVersion}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${springVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${springVersion}</version>
+    </dependency>
+
+    <!-- spring web + spring MVC-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${springVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${springVersion}</version>
+    </dependency>
+
+    <!-- hibernate配置-->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernateVersion}</version>
+    </dependency>
+
+    <!-- hibernate 缓存, 视情况添加-->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-ehcache</artifactId>
+      <version>${hibernateVersion}</version>
+    </dependency>
+
+    <!-- jsp页面使用的jstl支持-->
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstlVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>${taglibVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>${servletVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- DataBase数据库连接 mysql包-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysqlVersion}</version>
+    </dependency>
+
+    <!-- 数据库连接池-->
+    <dependency>
+      <groupId>c3p0</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>${c3p0Version}</version>
+    </dependency>
+
+    <!-- json数据 使springMVC可以返回json值 ,视情况添加-->
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>${jsonVersion}</version>
+    </dependency>
+
+    <!-- Jackson可以轻松的将Java对象转换成json对象和xml文档,同样也可以将json、xml转换成Java对象-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jacksonVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jacksonVersion}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jacksonVersion}</version>
+    </dependency>
+
+    <!-- log4j配置, 视情况添加-->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${log4jVersion}</version>
+    </dependency>
+
+    <!--文件 上传-->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${fileuploadVersion}</version>
+    </dependency>
+
+    <!-- lombok插件导包-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombokVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
+	
   <build>
+	   <plugins>  
+	       <plugin>  
+	           <groupId>org.apache.maven.plugins</groupId>  
+	           <artifactId>maven-compiler-plugin</artifactId>  
+	           <configuration>  
+	               <source>1.8</source>  
+	               <target>1.8</target>  
+	           </configuration>  
+	       </plugin>  
+	   </plugins> 
     <finalName>boke</finalName>
   </build>
 </project>
